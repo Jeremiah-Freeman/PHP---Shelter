@@ -1,8 +1,8 @@
 <?php
 
     /**
-    * @backGlobals disabled
-    * @backupstaticAttributes disabled
+    * @backupGlobals disabled
+    * @backupStaticAttributes disabled
     */
 
 
@@ -15,10 +15,10 @@
 
     class TypeTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Types::deleteAll();
-        // }
+        protected function tearDown()
+        {
+            Type::deleteAll();
+        }
         function test_get_type()
         {
             //Arrange
@@ -44,6 +44,36 @@
 
             //Assert
             $this->assertEquals($id,$result);
+        }
+        function test_save()
+        {
+            //Arrange
+            $type = "lion";
+            $test_type = new Type($type);
+            $test_type-> save();
+
+            //Act
+            $result = Type::getAll();
+
+            //Assert
+            $this->assertEquals($test_type,$result[0]);
+        }
+        function test_getAll()
+        {
+            //Arrange
+            $type = "lion";
+            $type2 = "shark";
+            $test_type = new Type($type);
+            $test_type->save();
+            $test_type2 = new Type($type2);
+            $test_type2->save();
+
+            //Act
+            $result = Type::getAll();
+
+            //Assert
+            $this->assertEquals([$test_type,$test_type2], $result);
+
         }
 
     }

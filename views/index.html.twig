@@ -1,0 +1,52 @@
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <title>XtrAnimal!!!!!</title>
+</head>
+<body>
+    <div class='container'>
+        <div class='well'>
+            <h1>ExxxTreme Animal Shelter!!!!!</h1>
+        </div>
+        <div class='row'>
+            <div class='col-md-5'>
+                {% block inputform %}
+                <h2>Add a type of XXXTreme Animal to shelter:</h2>
+                <form action='/' method='post'>
+                    <div class='form-group'>
+                        <label for='type'>Animal Type</label>
+                        <input required type='text' name='type' class='form-control'>
+                    </div>
+                    <button type='submit' class='btn btn-info'>Add item</button>
+                </form>
+                {% endblock %}
+                {% block navbuttons %}
+                    <form method="post" class="btn-group-vertical">
+                    {% if types is not empty %}
+                        {% for type in types %}
+                            <button type=submit formaction="/type/{{type.getId}}" class="btn btn-danger">{{ type.getType }}</button>
+                        {% endfor %}
+                    {% endif %}
+                    </form>
+                {% endblock %}
+            </div>
+            <div class='col-md-7'>
+                {% block display %}
+                    <h2>XXtreme Animals sheltered here </h2>
+                    <ul>
+                    {% if animals is not empty %}
+                        {% for animal in animals %}
+                            <li>{{ animal.getName }}</li>
+                            <ul>
+                                <li>{{animal.getAge}}</li>
+                                <li>{{animal.getDateOfAdmittance}}</li>
+                            </ul>
+                        {% endfor %}
+                    {% endif %}
+                    </ul>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

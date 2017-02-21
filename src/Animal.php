@@ -41,6 +41,19 @@ class Animal
             $GLOBALS['DB']->exec("INSERT INTO animals(name,age,date_of_admittance,id_type)VALUES('{$this->getName()}',{$this->getAge()},'{$this->getDateOfAdmittance()}',{$this->getIdType()})");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
+
+        static function getAll()
+        {
+            $returned_animals = $GLOBALS['DB']->query("SELECT * FROM animals;");
+            $animals = array();
+            foreach ($returned_animals as $animal)
+            {
+                $new_animal = new Animal ($animal['name'],$animal['age'],$animal['date_of_admittance'],$animal['id_type'],$animal['id']);
+                array_push($animals,$new_animal);
+            }
+            return $animals;
+        }
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM animals;");

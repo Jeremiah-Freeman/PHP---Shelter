@@ -7,6 +7,7 @@
 
 
     require_once "src/Type.php";
+    require_once "src/Animal.php";
 
     $server= 'mysql:host=localhost:8889;dbname=shelter_test';
     $username= 'root';
@@ -73,6 +74,50 @@
 
             //Assert
             $this->assertEquals([$test_type,$test_type2], $result);
+
+        }
+
+        function test_find()
+        {
+            //Arrange
+            $type = "lion";
+            $type2 = "shark";
+            $test_type = new Type($type);
+            $test_type->save();
+            $test_type2 = new Type($type2);
+            $test_type2->save();
+
+            //Act
+            $result = Type::find($test_type->getId());
+
+            //Assert
+            $this->assertEquals($test_type, $result);
+
+        }
+
+        function test_getAnimals()
+        {
+            //Arrange
+            $type = "lion";
+            $test_type = new Type($type);
+            $test_type-> save();
+            $name = "Mr. Lion";
+            $age = 50;
+            $date_of_admittance = '2017-02-21';
+            $name2 = "Mrs. Lion";
+            $age2 = 48;
+            $date_of_admittance2 = '2017-02-23';
+            $id_type = $test_type->getId();
+            $test_animal = new Animal($name,$age,$date_of_admittance,$id_type);
+            $test_animal->save();
+            $test_animal2 = new Animal($name2,$age2,$date_of_admittance2,$id_type);
+            $test_animal2->save();
+
+            //Act
+            $result = $test_type->getAnimals();
+
+            //Assert
+            $this->assertEquals([$test_animal,$test_animal2], $result);
 
         }
 

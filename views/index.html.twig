@@ -21,7 +21,7 @@
                 </form>
                 {% endblock %}
                 {% block navbuttons %}
-                    <form method="post" class="btn-group-vertical">
+                    <form method="get" class="btn-group-vertical">
                     {% if types is not empty %}
                         {% for type in types %}
                             <button type=submit formaction="/type/{{type.getId}}" class="btn btn-danger">{{ type.getType }}</button>
